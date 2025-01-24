@@ -3,7 +3,7 @@ import Book from '../models/Book.js';
 
 const router = express.Router();
 
-// Create a new book (POST)
+
 router.post('/', async (req, res) => {
   const { title, author, ISBN, genre, publishedYear, publisher, pages, availableCopies } = req.body;
 
@@ -11,23 +11,23 @@ router.post('/', async (req, res) => {
 
   try {
     const savedBook = await book.save();
-    res.status(201).json(savedBook); // Respond with the saved book
+    res.status(201).json(savedBook); 
   } catch (err) {
-    res.status(400).json({ error: err.message }); // Handle errors
+    res.status(400).json({ error: err.message }); 
   }
 });
 
-// Get all books (GET)
+
 router.get('/', async (req, res) => {
   try {
     const books = await Book.find();
-    res.status(200).json(books); // Respond with the list of books
+    res.status(200).json(books); 
   } catch (err) {
     res.status(500).json({ error: 'Error fetching books' });
   }
 });
 
-// Get a single book by ID (GET)
+
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -36,13 +36,12 @@ router.get('/:id', async (req, res) => {
     if (!book) {
       return res.status(404).json({ message: 'Book not found' });
     }
-    res.status(200).json(book); // Respond with the single book
+    res.status(200).json(book); 
   } catch (err) {
     res.status(500).json({ error: 'Error fetching the book' });
   }
 });
 
-// Update a book by ID (PUT)
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
@@ -52,13 +51,13 @@ router.put('/:id', async (req, res) => {
     if (!updatedBook) {
       return res.status(404).json({ message: 'Book not found' });
     }
-    res.status(200).json(updatedBook); // Respond with the updated book
+    res.status(200).json(updatedBook); 
   } catch (err) {
     res.status(400).json({ error: 'Error updating the book' });
   }
 });
 
-// Delete a book by ID (DELETE)
+
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -67,7 +66,7 @@ router.delete('/:id', async (req, res) => {
     if (!deletedBook) {
       return res.status(404).json({ message: 'Book not found' });
     }
-    res.status(200).json({ message: 'Book deleted successfully' }); // Respond with success message
+    res.status(200).json({ message: 'Book deleted successfully' }); 
   } catch (err) {
     res.status(500).json({ error: 'Error deleting the book' });
   }
